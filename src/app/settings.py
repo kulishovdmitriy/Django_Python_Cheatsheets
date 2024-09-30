@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_extensions', # Позволяет выполнять SQL запросы к нашей базе с терминала(создавать объекты, редактировать, удалять)
+
+    'accounts',
+    'core',
+    'source',
 ]
 
 MIDDLEWARE = [
