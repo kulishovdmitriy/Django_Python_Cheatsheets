@@ -9,17 +9,18 @@ class Topic(models.Model):
     image = models.ImageField(upload_to="topic_images/", default="topic_images/default_topic_images.png")
 
     def __str__(self):
-        return f'Topic: {self.name}'
+        return f'{self.name}'
 
 
 class Source(models.Model):
 
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='sources')
     title = models.CharField(max_length=25, null=False)
     description = models.TextField(max_length=255, null=False)
     image = models.ImageField(upload_to="source_images/", default="source_images/default_source_images.png")
 
     def __str__(self):
-        return f'Title: {self.title}, Description: {self.description}'
+        return f'{self.title}, {self.description}'
 
     class Meta:
         ordering = ['title']
@@ -27,7 +28,8 @@ class Source(models.Model):
 
 class Information(models.Model):
 
+    source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='informations')
     text = models.TextField(max_length=3000, null=False)
 
     def __str__(self):
-        return f'Text: {self.text}'
+        return f'{self.text}'
