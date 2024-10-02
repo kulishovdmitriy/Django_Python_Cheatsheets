@@ -11,7 +11,7 @@
 
 {% block content %}
 
-    {% if topic %}
+    {% if topics %}
         <div class="table-responsive">
             <table class="table table-hover">
                 <thead class="table-dark">
@@ -29,7 +29,7 @@
                             </td>
                             <td>{{ topic.name }}</td>
                             <td>
-                                <a href="{% 'source:source_detail' source.id %}">DETAILS</a>
+                                <a href="{% url 'source:source_detail' topic.id %}" class="btn btn-outline-warning">DETAILS</a>
                             </td>
                         </tr>
                     {% endfor %}
