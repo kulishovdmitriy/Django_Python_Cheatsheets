@@ -11,7 +11,7 @@ class TopicListView(ListView):
 
     model = Topic
     template_name = 'topic_list.html'
-    context_object_name = 'topic'
+    context_object_name = 'topics'
     paginate_by = 10
 
 
@@ -19,7 +19,7 @@ class SourceListView(ListView):
 
     model = Source
     template_name = 'source_list.html'
-    context_object_name = 'source'
+    context_object_name = 'sources'
     pk_url_kwarg = 'id'
     paginate_by = 10
 
