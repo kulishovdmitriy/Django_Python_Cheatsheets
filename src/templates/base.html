@@ -24,6 +24,33 @@
             <li class="nav-item">
               <a class="nav-link"  href="{% url 'source:topic_list' %}">Topic</a>
             </li>
+            </ul>
+
+            <ul class="navbar-nav">
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:profile' user.uuid %}">
+<!--                      <img src="{{ user.profile.image.url }}" alt="Profile Picture" class="rounded-circle" width="35" height="35">-->
+                      {{ user.username }}
+                  </a>
+              </li>
+              <li class="nav-item">
+                <form method="post" action="{% url 'accounts:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="nav-link btn btn-link">Logout</button>
+                </form>
+              </li>
+
+              {% else %}
+
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:registration' %}">Register</a>
+              </li>
+
+              <li class="nav-item">
+                  <a class="nav-link" href="{% url 'accounts:login' %}">Login</a>
+              </li>
+              {% endif %}
           </ul>
 
         </div>

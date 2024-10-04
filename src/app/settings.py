@@ -39,8 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # Настройки crispy-forms (pip install crispy-bootstrap5 и  pip install django-crispy-forms)
+    'crispy_forms',
+    'crispy_bootstrap5',
+
     'django_extensions',  # Позволяет выполнять SQL запросы к нашей базе с терминала(создавать объекты, редактировать, удалять)
 
+    # Наши приложения
     'accounts',
     'core',
     'source',
@@ -124,6 +129,10 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -133,3 +142,6 @@ AUTH_USER_MODEL = 'accounts.User'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Подключаем bootstrap5
+CRISPY_TEMPLATE_PACK = 'bootstrap5'
