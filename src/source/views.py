@@ -1,8 +1,8 @@
 from django.shortcuts import render # noqa
 from django.views.generic import DetailView, ListView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from source.models import Information, Source, Topic
-
 
 # Create your views here.
 
@@ -15,7 +15,7 @@ class TopicListView(ListView):
     paginate_by = 10
 
 
-class SourceListView(ListView):
+class SourceListView(LoginRequiredMixin, ListView):
 
     model = Source
     template_name = 'source_list.html'
@@ -24,7 +24,7 @@ class SourceListView(ListView):
     paginate_by = 10
 
 
-class InformationDetailView(DetailView):
+class InformationDetailView(LoginRequiredMixin, DetailView):
     model = Information
     template_name = 'information_detail.html'
     context_object_name = 'information'

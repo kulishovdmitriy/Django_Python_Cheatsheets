@@ -3,4 +3,5 @@
 exclude=venv,migrations
 max-line-length=160
 import-order-style = pep8
+ignore = I202
 application-import-names = source, core, app, accounts
