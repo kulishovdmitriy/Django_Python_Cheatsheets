@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
     <title>Welcome to Python Cheatsheets</title>
 {% endblock %}
@@ -8,6 +10,13 @@
   <h2>Welcome to Python Cheatsheets</h2>
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% endblock %}
+
 {% block content %}
 
+    <div style="text-align: center;">
+        <img src="{% static 'app/base.jpeg' %}" alt="Static Image" class="rounded-image" style="width: 1024px; height: 800px;">
+    </div>
 {% endblock %}

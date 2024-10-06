@@ -5,6 +5,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic.edit import ProcessFormView
 from django.http import HttpResponseRedirect
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from accounts.models import User
 from accounts.forms import AccountCreateForm, UserUpdateForm, ProfileUpdateForm
@@ -37,7 +38,7 @@ class AccountLogoutView(LogoutView):
     template_name = 'logout.html'
 
 
-class ProfileUpdateView(ProcessFormView):
+class ProfileUpdateView(LoginRequiredMixin, ProcessFormView):
 
     def get_object(self):
         # Получаем UUID из kwargs

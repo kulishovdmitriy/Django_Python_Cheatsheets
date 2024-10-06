@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
     <title>Login in as a user</title>
@@ -10,19 +11,30 @@
   <h2>Login in as a user</h2>
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 
-    <form method="post">
-        {% csrf_token %}
+    <div class="login-container">
+        <!-- Блок с формой -->
+        <div class="form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
 
-        {{form|crispy}}
-
-        <div class="mb-3">
-            <input type="submit" class="btn btn-success" value="Login in">
-
-            <input type="button" class="btn btn-dark" value="Back" onclick="history.back()">
+                <div class="mb-3">
+                    <input type="submit" class="btn btn-outline-success" value="Login in">
+                    <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
+                </div>
+            </form>
         </div>
 
-    </form>
+        <!-- Блок с изображением -->
+        <div class="image-container">
+            <img src="{% static 'accounts/login.jpeg' %}" alt="Side Image">
+        </div>
+    </div>
 
 {% endblock %}

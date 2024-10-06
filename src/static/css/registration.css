@@ -1,0 +1,28 @@
+.login-container {
+    display: flex;
+    justify-content: flex-start; /* Выравнивание формы и изображения рядом */
+    align-items: stretch; /* Растягиваем элементы по высоте */
+    gap: 20px; /* Расстояние между формой и изображением */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 400px; /* Максимальная ширина формы */
+    max-height: 700px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.image-container {
+    flex-grow: 1; /* Позволяет изображению занимать оставшееся пространство */
+}
+
+.image-container img {
+    width: 100%; /* Изображение растянется на всю ширину родительского контейнера */
+    height: 100%; /* Изображение растянется на всю высоту родительского контейнера */
+    object-fit: cover; /* Сохраняет пропорции и обрезает изображение, если оно не вписывается */
+    border-radius: 10px; /* Закругляем углы изображения */
+}
