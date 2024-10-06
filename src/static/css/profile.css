@@ -1,0 +1,69 @@
+.rounded-image {
+    width: 150px; /* Ширина изображения */
+    height: 150px; /* Высота изображения */
+    border-radius: 50%; /* Округлые края для круглой формы */
+    object-fit: cover; /* Обеспечивает правильное соотношение сторон изображения */
+    border: 2px solid #ddd; /* Граница вокруг изображения */
+    margin-bottom: 10px; /* Отступ снизу */
+
+}
+.profile-container {
+    display: flex;
+    justify-content: flex-start; /* Выравнивание формы и изображения рядом */
+    align-items: stretch; /* Растягиваем элементы по высоте */
+    gap: 20px; /* Расстояние между формой и изображением */
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container {
+    max-width: 400px; /* Максимальная ширина формы */
+    max-height: 1100px;
+    padding: 20px;
+    background-color: #f2f2f2;;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select { /* Добавляем select для выбора */
+    background-color: rgba(255, 255, 255, 0.7); /* Поля ввода с легкой прозрачностью */
+    border: 1px solid #ccc; /* Граница поля ввода */
+    border-radius: 5px; /* Закругленные углы для полей ввода */
+    padding: 10px; /* Внутренние отступы */
+    width: calc(100% - 22px); /* Учитываем отступы */
+    margin-bottom: 15px; /* Отступ между полями ввода */
+    transition: background-color 0.3s; /* Плавный переход цвета фона */
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    background-color: rgba(255, 255, 255, 0.9); /* Меняем цвет фона при фокусе */
+    border-color: #66afe9; /* Цвет границы при фокусе */
+    outline: none; /* Убираем стандартное выделение */
+}
+
+.image-container {
+    width: 900px; /* Установите ширину контейнера */
+    height: 900px; /* Установите высоту контейнера */
+    overflow: hidden; /* Скрыть лишнюю часть изображения */
+    border-radius: 10px; /* Закругленные углы контейнера */
+    display: flex; /* Используем flexbox для центрирования */
+    justify-content: center; /* Центрирование по горизонтали */
+    align-items: flex-start; /* Выровнять элементы по верхнему краю */
+}
+
+.image-container img {
+    width: 100%; /* Изображение растянется на всю ширину контейнера */
+    height: auto; /* Высота будет автоматически подстраиваться для сохранения пропорций */
+    max-height: 100%; /* Ограничиваем максимальную высоту */
+    object-fit: contain; /* Сохраняет пропорции и помещает изображение в контейнер */
+    object-position: top; /* Устанавливаем изображение к верхней части контейнера */
+    border-radius: 10px; /* Закругляем углы изображения */
+}

@@ -1,34 +1,45 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block title %}
-    <title>Edit user</title>
+    <title>Edit profile</title>
 {% endblock %}
 
 {% block header %}
-  <h2>Edit user</h2>
+  <h2>Edit profile</h2>
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block content %}
-
-        <form method="post" enctype="multipart/form-data">
-        
+    <div class="profile-container">
+    <!-- Блок с формой -->
+        <div class="form-container">
+        <form method="post" enctype="multipart/form-data" class="user-edit-form">
             <div style="text-align: center;">
-                <img src="{{ user.profile.image.url }}" alt="Profile Image" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 2px solid #ddd; margin-bottom: 10px;">
-                    <h2>{{ user.username }}</h2>
-                    <p>{{ user.email }}</p>
+                <img src="{{ user.profile.image.url }}" alt="Profile Image" class="rounded-image">
+                <h2>{{ user.username }}</h2>
+                <p>{{ user.email }}</p>
             </div>
 
             {% csrf_token %}
 
-            {{form|crispy}}
+            {{ user_form|crispy }}
+            {{ profile_form|crispy }}
 
             <div class="mb-3">
-                <input type="submit" class="btn btn-success" value="Save">
-
-                <input type="button" class="btn btn-dark" value="Back" onclick="history.back()">
+                <input type="submit" class="btn btn-outline-success" value="Save">
+                <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
             </div>
         </form>
+    </div>
+        <!-- Блок с изображением -->
+    <div class="image-container">
+        <img src="{% static 'accounts/profile.jpeg' %}" alt="Side Image">
+    </div>
 
+    </div>
 {% endblock %}
