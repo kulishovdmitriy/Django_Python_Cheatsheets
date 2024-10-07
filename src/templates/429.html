@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Rate Limit Exceeded</title>
+{% endblock %}
+
+{% block header %}
+  <h2>Rate Limit Exceeded</h2>
+{% endblock %}
+
+{% block content %}
+
+    <h1>You have exceeded the number of allowed requests. Please try again later.</h1>
+
+    <div style="text-align: center;">
+        <img src="{% static 'error_page/429.jpeg' %}" alt="Static Image" style="width: 425px; height: 264px;">
+    </div>
+
+{% endblock %}

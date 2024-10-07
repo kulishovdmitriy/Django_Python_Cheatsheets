@@ -1,11 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import CreateView
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordResetView
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.views.generic.edit import ProcessFormView
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 
 from accounts.models import User
 from accounts.forms import AccountCreateForm, UserUpdateForm, ProfileUpdateForm
@@ -86,3 +87,13 @@ class ProfileUpdateView(LoginRequiredMixin, ProcessFormView):
                 'profile_form': profile_form,
             }
         )
+
+
+class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+
+    template_name = 'password_reset.html'
+    email_template_name = 'password_reset_email.html'
+    html_email_template_name = 'password_reset_email.html'
+    success_url = reverse_lazy('accounts:password_reset_done')
+    success_message = "An email with instructions to reset your password has been sent to %(email)s."
+    subject_template_name = 'password_reset_subject.txt'
