@@ -1,18 +1,31 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     <title>Source list</title>
 {% endblock %}
 
 {% block header %}
-    <h1>Source list</h1>
+    <h1>Source list {{ topic.name }}</h1>
 {% endblock %}
 
 
 {% block content %}
 
+    {% if user.is_authenticated and user.is_active %}
+        <h3>Create New Source</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div style="display: flex; justify-content: flex-end;">
+                <button type="submit" class="btn btn-outline-success">Create Source</button>
+            </div>
+        </form>
+    {% endif %}
+
     {% if sources %}
-        <div class="table-responsive">
+        <div class="table-responsive p-2 m-2">
             <table class="table table-hover table-striped">
                 <thead class="table-dark">
                     <tr>
@@ -32,8 +45,11 @@
                             <td>{{ source.description }}</td>
 
                             <td>
-                                <a href="{% url 'source:information_detail' source.id %}" class="btn btn-outline-info">DETAILS</a>
+                            {% for information in source.information_list %}
+                                <a href="{% url 'source:information_detail' information.id %}" class="btn btn-outline-info">DETAILS</a>
+                            {% endfor %}
                             </td>
+
                         </tr>
                     {% endfor %}
                 </tbody>

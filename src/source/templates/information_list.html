@@ -1,13 +1,35 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
     <title>Info</title>
 {% endblock %}
 
 {% block header %}
-  <h2>{{information}}</h2>
+    <h2>Info</h2>
 {% endblock %}
 
 {% block content %}
+
+    {% if informations %}
+
+        <h3>{{ informations.text }}</h3>
+
+    {% else %}
+
+        {% if user.is_authenticated and user.is_active %}
+            <h3>Create New Information</h3>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <div style="display: flex; justify-content: flex-end;">
+                    <button type="submit" class="btn btn-outline-success">Create Info</button>
+                </div>
+            </form>
+        {% endif %}
+
+        <p>No Information yet :(</p>
+    {% endif %}
 
 {% endblock %}
