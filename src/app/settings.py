@@ -26,7 +26,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Для production нужно указать ALLOWED_HOSTS
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
+    # Наши middlewares
     'core.middlewares.QueryParamsInjectorMiddleware',
 ]
 
@@ -68,7 +70,7 @@ ROOT_URLCONF = 'app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],  # Подключаем все templates с приложений
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,6 +133,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+# Подключаем static со всех приложений
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
@@ -140,8 +143,10 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Подключаем нашего User(AbstractUser)
 AUTH_USER_MODEL = 'accounts.User'
 
+# Подключаем media для всего проекта (ещё нужно добавить url для обработки пути в urls.py)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
