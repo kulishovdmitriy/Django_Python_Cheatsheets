@@ -13,10 +13,7 @@
     <h1>Something went wrong on our end. Please try again later.</h1>
 
     <div style="text-align: center;">
-        <img src="{% static 'error_page/500.jpeg' %}" alt="Static Image" style="width: 425px; height: 264px;">
+        <img src="{% static 'error_page/500.jpeg' %}" alt="Static Image" style="width: 800px; height: 800px;">
     </div>
 
-    <div>
-        <a class="btn btn-primary" href="{% url 'core:index' %}">Go to Home</a>
-    </div>
 {% endblock %}

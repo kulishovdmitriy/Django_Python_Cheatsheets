@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,8 +43,6 @@ INSTALLED_APPS = [
     # Настройки crispy-forms (pip install crispy-bootstrap5 и  pip install django-crispy-forms)
     'crispy_forms',
     'crispy_bootstrap5',
-
-    'django_extensions',  # Позволяет выполнять SQL запросы к нашей базе с терминала(создавать объекты, редактировать, удалять)
 
     # Наши приложения
     'accounts',
