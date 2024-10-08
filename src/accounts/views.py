@@ -20,6 +20,10 @@ class AccountRegisterView(CreateView):
     form_class = AccountCreateForm
     success_url = reverse_lazy('core:index')
 
+    def post(self, request, *args, **kwargs):
+        messages.info(self.request, f'User {self.request.user} not registered')
+        return HttpResponseRedirect(reverse('accounts:registration'))
+
 
 class AccountLoginView(LoginView):
     template_name = 'login.html'
