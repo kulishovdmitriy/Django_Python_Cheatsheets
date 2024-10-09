@@ -12,3 +12,23 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(':')
 STATIC_ROOT = '/var/www/web_cheatsheets/static'
 
 MEDIA_ROOT = '/var/www/web_cheatsheets/media'
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/path/to/your/logs/django-error.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}

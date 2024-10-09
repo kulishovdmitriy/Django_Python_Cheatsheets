@@ -1,6 +1,7 @@
-from django.shortcuts import redirect
-from django.views.generic import DetailView, ListView
+from django.shortcuts import HttpResponseRedirect, reverse, get_object_or_404
+from django.views.generic import DetailView, ListView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 from source.forms import InformationCreateForm, SourceCreateForm, TopicCreateForm
 from source.models import Information, Source, Topic
@@ -26,7 +27,8 @@ class TopicListView(ListView):
             form = TopicCreateForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
-                return redirect('source:topic_list')
+                messages.success(request, 'Topic created successfully!')
+                return HttpResponseRedirect(reverse('source:topic_list'))
         return self.get(request, *args, **kwargs)
 
 
@@ -66,30 +68,48 @@ class SourceListView(LoginRequiredMixin, ListView):
             source = form.save(commit=False)
             source.topic = topic  # Связываем новый источник с топиком
             source.save()
-            return redirect('source:source_list')  # Перенаправляем обратно на список
+            messages.success(request, 'Source created successfully!')
+            return HttpResponseRedirect(reverse('source:source_list', kwargs={'id': topic.id}))  # Перенаправляем обратно на список
         return self.get(request, *args, **kwargs)
 
 
 class InformationDetailView(LoginRequiredMixin, DetailView):
     model = Information
     template_name = 'information_list.html'
-    context_object_name = 'informations'
+    context_object_name = 'information'
     pk_url_kwarg = 'id'  # Этот id должен быть идентификатором информации
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        # Добавляем форму в контекст, если пользователь аутентифицирован
         if self.request.user.is_authenticated and self.request.user.is_active:
             context['form'] = InformationCreateForm()
+            # Добавляем источник в контекст для использования в форме
+            context['source'] = self.object.source
         return context
 
     def post(self, request, *args, **kwargs):
-        source = Source.objects.get(pk=self.kwargs.get('id'))  # Получаем текущий источник
+        source_id = self.kwargs.get('id')  # Получаем ID источника из URL
+        source = Source.objects.get(pk=source_id)  # Получаем источник
         form = InformationCreateForm(request.POST, request.FILES)
         if form.is_valid():
             information = form.save(commit=False)
             information.source = source  # Связываем новую информацию с источником
             information.save()
-            return redirect('source:information_detail')  # Перенаправляем обратно на список
+            messages.success(request, 'Info created successfully!')
+            return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))  # Перенаправляем на детали новой информации
         return self.get(request, *args, **kwargs)
+
+
+class InformationCreateView(LoginRequiredMixin, CreateView):
+    model = Information
+    template_name = 'information_list.html'
+    form_class = InformationCreateForm
+
+    def form_valid(self, form):
+        source_id = self.kwargs.get('source_id')
+        source = get_object_or_404(Source, pk=source_id)
+        information = form.save(commit=False)
+        information.source = source  # Привязываем информацию к источнику
+        information.save()
+        messages.success(self.request, 'Information created successfully!')
+        return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))

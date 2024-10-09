@@ -45,11 +45,14 @@
                             <td>{{ source.description }}</td>
 
                             <td>
-                            {% for information in source.information_list %}
-                                <a href="{% url 'source:information_detail' information.id %}" class="btn btn-outline-info">DETAILS</a>
-                            {% endfor %}
+                            {% if source.information_list.exists %}
+                                {% for information in source.information_list %}
+                                    <a href="{% url 'source:information_list' information.id %}" class="btn btn-outline-info">DETAILS</a>
+                                {% endfor %}
+                            {% else %}
+                                <a href="{% url 'source:information_create' source.id %}" class="btn btn-outline-info">Create Info</a>
+                            {% endif %}
                             </td>
-
                         </tr>
                     {% endfor %}
                 </tbody>
