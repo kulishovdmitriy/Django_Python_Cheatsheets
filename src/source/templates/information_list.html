@@ -7,14 +7,16 @@
 {% endblock %}
 
 {% block header %}
-    <h2>Info</h2>
+    <h2>{% if source %}Info: {{ source.title }}{% else %}Info{% endif %}</h2>
 {% endblock %}
 
 {% block content %}
 
-    {% if informations %}
+    {% if information %}
 
-        <h3>{{ informations.text }}</h3>
+        <h4 style="font-size: 20px; font-weight: normal;">
+            {{ information.text|linebreaks }}
+        </h4>
 
     {% else %}
 

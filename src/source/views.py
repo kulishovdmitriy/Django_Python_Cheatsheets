@@ -81,23 +81,8 @@ class InformationDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if self.request.user.is_authenticated and self.request.user.is_active:
-            context['form'] = InformationCreateForm()
-            # Добавляем источник в контекст для использования в форме
-            context['source'] = self.object.source
+        context['source'] = self.object.source  # Получаем источник информации
         return context
-
-    def post(self, request, *args, **kwargs):
-        source_id = self.kwargs.get('id')  # Получаем ID источника из URL
-        source = Source.objects.get(pk=source_id)  # Получаем источник
-        form = InformationCreateForm(request.POST, request.FILES)
-        if form.is_valid():
-            information = form.save(commit=False)
-            information.source = source  # Связываем новую информацию с источником
-            information.save()
-            messages.success(request, 'Info created successfully!')
-            return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))  # Перенаправляем на детали новой информации
-        return self.get(request, *args, **kwargs)
 
 
 class InformationCreateView(LoginRequiredMixin, CreateView):
