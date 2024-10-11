@@ -28,8 +28,8 @@ class Source(models.Model):
 
 class Information(models.Model):
 
-    source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='informations')
-    text = models.TextField(max_length=3000, null=False)
+    source = models.ForeignKey(Source, on_delete=models.CASCADE, related_name='information')
+    text = models.TextField(max_length=7000, null=False)
 
     def __str__(self):
         return f'{self.text}'
