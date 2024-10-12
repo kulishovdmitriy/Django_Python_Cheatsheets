@@ -1,9 +1,10 @@
 from django.shortcuts import HttpResponseRedirect, reverse, get_object_or_404
-from django.views.generic import DetailView, ListView, CreateView
+from django.views.generic import DetailView, ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
-from source.forms import InformationCreateForm, SourceCreateForm, TopicCreateForm
+from source.custom_filters import highlight_code
+from source.forms import InformationCreateUpdateForm, SourceCreateForm, TopicCreateForm
 from source.models import Information, Source, Topic
 
 # Create your views here.
@@ -82,13 +83,17 @@ class InformationDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['source'] = self.object.source  # Получаем источник информации
+        # Получаем текст из объекта и выделяем код
+        text_with_highlighting = highlight_code(self.object.text)
+
+        context['info_text'] = text_with_highlighting
         return context
 
 
 class InformationCreateView(LoginRequiredMixin, CreateView):
     model = Information
     template_name = 'information_list.html'
-    form_class = InformationCreateForm
+    form_class = InformationCreateUpdateForm
 
     def form_valid(self, form):
         source_id = self.kwargs.get('source_id')
@@ -97,4 +102,24 @@ class InformationCreateView(LoginRequiredMixin, CreateView):
         information.source = source  # Привязываем информацию к источнику
         information.save()
         messages.success(self.request, 'Information created successfully!')
+        return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))
+
+
+class InformationUpdateView(LoginRequiredMixin, UpdateView):
+    model = Information
+    template_name = 'information_update.html'
+    form_class = InformationCreateUpdateForm
+    pk_url_kwarg = 'id'  # предполагаем, что в URL передается id информации
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        information = self.get_object()  # Получаем объект информации
+        context['source'] = information.source  # Получаем связанный источник
+        return context
+
+    def form_valid(self, form):
+        information = form.save(commit=False)
+        information.source = information.source  # Здесь вы уже связаны с объектом Source
+        information.save()  # Сохраняем объект
+        messages.success(self.request, 'Information updated successfully!')
         return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))

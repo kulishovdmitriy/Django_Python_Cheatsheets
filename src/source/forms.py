@@ -15,7 +15,7 @@ class SourceCreateForm(ModelForm):
         fields = ['title', 'description', 'image']
 
 
-class InformationCreateForm(ModelForm):
+class InformationCreateUpdateForm(ModelForm):
     class Meta:
         model = Information
         fields = ['text']
