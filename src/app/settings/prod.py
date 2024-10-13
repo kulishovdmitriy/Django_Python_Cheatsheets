@@ -1,6 +1,8 @@
 import os # noqa
 from app.settings.components.base import * # noqa
 from app.settings.components.postgres_base import * # noqa
+from app.settings.components.email_config import * # noqa
+from app.settings.components.celery_broker import * # noqa
 
 
 # SECURITY WARNING: don't run with debug turned on in production!

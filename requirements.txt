@@ -1,5 +1,12 @@
+amqp==5.2.0
 asgiref==3.8.1
 asttokens==2.4.1
+billiard==4.2.1
+celery==5.4.0
+click==8.1.7
+click-didyoumean==0.3.1
+click-plugins==1.1.1
+click-repl==0.3.0
 crispy-bootstrap5==2024.2
 decorator==5.1.1
 Django==5.1.1
@@ -15,6 +22,7 @@ flake8-import-order==0.18.2
 gunicorn==23.0.0
 ipython==8.27.0
 jedi==0.19.1
+kombu==5.4.2
 matplotlib-inline==0.1.7
 mccabe==0.7.0
 packaging==24.1
@@ -28,9 +36,12 @@ pure_eval==0.2.3
 pycodestyle==2.12.1
 pyflakes==3.2.0
 Pygments==2.18.0
+python-dateutil==2.9.0.post0
 six==1.16.0
 sqlparse==0.5.1
 stack-data==0.6.3
 traitlets==5.14.3
 typing_extensions==4.12.2
+tzdata==2024.2
+vine==5.1.0
 wcwidth==0.2.13

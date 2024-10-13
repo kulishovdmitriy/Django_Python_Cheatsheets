@@ -150,3 +150,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Подключаем bootstrap5
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+
+# Django будет использовать указанный путь для перенаправления пользователей, когда они пытаются получить доступ к
+# защищенным представлениям, требующим аутентификации.
+LOGIN_URL = 'accounts:login'

@@ -1,5 +1,6 @@
 from app.settings.components.base import * # noqa
 from app.settings.components.dev_tools import * # noqa
+from app.settings.components.celery_broker import * # noqa
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
