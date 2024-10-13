@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    <title>Info</title>
+    <title>Edit</title>
 {% endblock %}
 
 {% block header %}
@@ -19,7 +19,7 @@
                 {% csrf_token %}
                 {{ form|crispy }}
                 <div class="m-3 p-2" style="display: flex; justify-content: flex-end;">
-                    <button type="submit" class="btn btn-outline-success me-2">Update Source</button>
+                    <button type="submit" class="btn btn-outline-success me-2">Update Info</button>
                     <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
                 </div>
             </form>

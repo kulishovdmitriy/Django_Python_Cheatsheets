@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 
 from source.custom_filters import highlight_code
-from source.forms import InformationCreateUpdateForm, SourceCreateForm, TopicCreateForm
+from source.forms import InformationCreateUpdateForm, SourceCreateUpdateForm, TopicCreateForm
 from source.models import Information, Source, Topic
 
 # Create your views here.
@@ -38,7 +38,7 @@ class SourceListView(LoginRequiredMixin, ListView):
     template_name = 'source_list.html'
     context_object_name = 'sources'
     pk_url_kwarg = 'id'  # Получение ID топика из URL
-    paginate_by = 10
+    paginate_by = 9
 
     def get_queryset(self):
         # Получаем ID топика из URL
@@ -59,12 +59,12 @@ class SourceListView(LoginRequiredMixin, ListView):
 
         # Добавляем форму в контекст, если пользователь аутентифицирован
         if self.request.user.is_authenticated and self.request.user.is_active:
-            context['form'] = SourceCreateForm()
+            context['form'] = SourceCreateUpdateForm()
         return context
 
     def post(self, request, *args, **kwargs):
         topic = Topic.objects.get(pk=self.kwargs.get('id'))  # Получаем текущий топик
-        form = SourceCreateForm(request.POST, request.FILES)
+        form = SourceCreateUpdateForm(request.POST, request.FILES)
         if form.is_valid():
             source = form.save(commit=False)
             source.topic = topic  # Связываем новый источник с топиком
@@ -72,6 +72,26 @@ class SourceListView(LoginRequiredMixin, ListView):
             messages.success(request, 'Source created successfully!')
             return HttpResponseRedirect(reverse('source:source_list', kwargs={'id': topic.id}))  # Перенаправляем обратно на список
         return self.get(request, *args, **kwargs)
+
+
+class SourceUpdateView(LoginRequiredMixin, UpdateView):
+    model = Source
+    template_name = 'source_update.html'
+    context_object_name = 'source'
+    form_class = SourceCreateUpdateForm
+    pk_url_kwarg = 'id'
+
+    def form_valid(self, form):
+        # Сохранение объекта
+        source = form.save(commit=False)
+        source.save()  # Сохраняем объект
+
+        messages.success(self.request, 'Source updated successfully!')
+        return super().form_valid(form)  # Перенаправляем после успешного сохранения
+
+    def get_success_url(self):
+        # Перенаправление после успешного обновления
+        return reverse('source:source_list', kwargs={'id': self.object.topic.id})
 
 
 class InformationDetailView(LoginRequiredMixin, DetailView):
