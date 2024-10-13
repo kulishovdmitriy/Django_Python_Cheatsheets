@@ -10,6 +10,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 
 from accounts.models import User
 from accounts.forms import AccountCreateForm, UserUpdateForm, ProfileUpdateForm
+from accounts.tasks import send_password_reset_email
 
 # Create your views here.
 
@@ -104,3 +105,8 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     success_url = reverse_lazy('accounts:password_reset_done')
     success_message = "An email with instructions to reset your password has been sent to %(email)s."
     subject_template_name = 'password_reset_subject.txt'
+
+    def form_valid(self, form):
+        email = form.cleaned_data['email']
+        send_password_reset_email.delay(email)
+        return super().form_valid(form)
