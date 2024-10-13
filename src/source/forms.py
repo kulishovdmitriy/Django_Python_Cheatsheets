@@ -9,7 +9,7 @@ class TopicCreateForm(ModelForm):
         fields = ['name', 'image']
 
 
-class SourceCreateForm(ModelForm):
+class SourceCreateUpdateForm(ModelForm):
     class Meta:
         model = Source
         fields = ['title', 'description', 'image']
