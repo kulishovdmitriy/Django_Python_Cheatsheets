@@ -19,13 +19,17 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 
+API_VERSION = 'api/v1'
 
 urlpatterns = [
     # UI
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('list/', include('source.urls')),
-    path('account/', include('accounts.urls'))
+    path('account/', include('accounts.urls')),
+
+    # API
+    path(f'{API_VERSION}/', include('source.api.urls')),
 ]
 
 urlpatterns += \
