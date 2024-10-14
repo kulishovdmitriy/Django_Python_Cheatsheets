@@ -14,7 +14,7 @@ class TopicListView(ListView):
     model = Topic
     template_name = 'topic_list.html'
     context_object_name = 'topics'
-    paginate_by = 10
+    paginate_by = 12
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -38,7 +38,7 @@ class SourceListView(LoginRequiredMixin, ListView):
     template_name = 'source_list.html'
     context_object_name = 'sources'
     pk_url_kwarg = 'id'  # Получение ID топика из URL
-    paginate_by = 9
+    paginate_by = 12
 
     def get_queryset(self):
         # Получаем ID топика из URL
