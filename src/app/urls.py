@@ -19,8 +19,9 @@ from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
 
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView
 
+from accounts.api.views import EmailLoginView
 
 API_VERSION = 'api/v1'
 
@@ -32,7 +33,7 @@ urlpatterns = [
     path('account/', include('accounts.urls')),
 
     # API
-    path(f'{API_VERSION}/login', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path(f'{API_VERSION}/login', EmailLoginView.as_view(), name='token_obtain_pair'),
     path(f'{API_VERSION}/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path(f'{API_VERSION}/auth/', include('accounts.api.urls')),
     path(f'{API_VERSION}/', include('source.api.urls')),
