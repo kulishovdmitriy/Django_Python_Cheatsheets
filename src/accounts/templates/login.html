@@ -3,12 +3,14 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% load socialaccount %}
+
 {% block title %}
-    <title>Login in as a user</title>
+    <title>Login as a User</title>
 {% endblock %}
 
 {% block header %}
-  <h2>Login in as a user</h2>
+  <h2>Login as a User</h2>
 {% endblock %}
 
 {% block head %}
@@ -16,28 +18,48 @@
 {% endblock %}
 
 {% block content %}
+<div class="login-container">
+    <!-- Блок с формой -->
+    <div class="form-container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
 
-    <div class="login-container">
-        <!-- Блок с формой -->
-        <div class="form-container">
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
+            <div class="mb-3">
+                <input type="submit" class="btn btn-outline-success" value="Login">
+                <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
+            </div>
+            <div class="small text-center">
+                <a class="text" href="{% url 'accounts:password_reset' %}">Forgot Password?</a>
+            </div>
+            <div>
+                <p>Или войдите с помощью:</p>
+                <div class="social-buttons">
+                    <!-- Google -->
+                    <a href="{% provider_login_url 'google' %}" target="_blank" rel="noopener noreferrer"
+                       class="btn btn-outline-danger" title="Sign in with Google">
+                        <i class="fab fa-google"></i>
+                    </a>
 
-                <div class="mb-3">
-                    <input type="submit" class="btn btn-outline-success" value="Login in">
-                    <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
+                    <!-- GitHub -->
+                    <a href="{% provider_login_url 'github' %}" target="_blank" rel="noopener noreferrer"
+                       class="btn btn-outline-dark" title="Sign in with GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+
+                    <!-- Facebook -->
+                    <a href="{% provider_login_url 'facebook' %}" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-outline-primary" title="Sign in with Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
                 </div>
-                <div class="small text-center">
-                    <a class="text" href="{% url 'accounts:password_reset' %}">Forgot Password?</a>
-                </div>
-            </form>
-        </div>
-
-        <!-- Блок с изображением -->
-        <div class="image-container">
-            <img src="{% static 'accounts/login.jpeg' %}" alt="Side Image">
-        </div>
+            </div>
+        </form>
     </div>
 
+    <!-- Блок с изображением -->
+    <div class="image-container">
+        <img src="{% static 'accounts/login.jpeg' %}" alt="Side Image" class="img-fluid">
+    </div>
+</div>
 {% endblock %}
