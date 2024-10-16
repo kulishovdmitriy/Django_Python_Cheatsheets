@@ -35,7 +35,9 @@
                 {{ form|crispy }}
                 <div style="display: flex; justify-content: flex-end;">
                     <button type="submit" class="btn btn-outline-success">Create Info</button>
-                     <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success">Update Info</a>
+                    {% if information %}
+                        <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success">Update Info</a>
+                    {% endif %}
                 </div>
             </form>
         {% endif %}
