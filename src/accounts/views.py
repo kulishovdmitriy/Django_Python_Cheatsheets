@@ -9,7 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 
 from accounts.models import User
-from accounts.forms import AccountCreateForm, UserUpdateForm, ProfileUpdateForm
+from accounts.forms import AccountCreateForm, UserUpdateForm, ProfileUpdateForm, EmailLoginForm
 from accounts.tasks import send_password_reset_email
 
 # Create your views here.
@@ -31,6 +31,7 @@ class AccountRegisterView(CreateView):
 
 class AccountLoginView(LoginView):
     template_name = 'login.html'
+    authentication_form = EmailLoginForm
 
     def get_redirect_url(self):
         if self.request.GET.get('next'):
