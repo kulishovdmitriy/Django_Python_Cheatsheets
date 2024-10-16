@@ -1,0 +1,11 @@
+.dropdown-menu {
+    background-color: #343a40; /* Темный цвет фона */
+    color: #ffffff; /* Белый цвет текста */
+}
+.dropdown-menu a {
+    color: #ffffff; /* Белый цвет текста для ссылок */
+}
+.dropdown-menu a:hover {
+    background-color: #495057; /* Цвет фона при наведении на ссылку */
+    color: #ffffff; /* Белый цвет текста при наведении */
+}
