@@ -9,7 +9,7 @@
 
 .form-container {
     max-width: 400px; /* Максимальная ширина формы */
-    max-height: 700px;
+    max-height: 900px;
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;

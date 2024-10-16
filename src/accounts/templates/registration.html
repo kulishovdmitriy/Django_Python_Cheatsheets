@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
+
 {% load crispy_forms_tags %}
 {% load static %}
+
+{% load socialaccount %}
 
 {% block title %}
     <title>Register new user</title>
@@ -27,12 +30,35 @@
                 <input type="submit" class="btn btn-outline-success" value="Register">
                 <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
             </div>
+
+            <div>
+                <p>Или зарегистрируйтесь с помощью:</p>
+                    <div class="social-buttons">
+                        <!-- Google -->
+                        <a href="{% provider_login_url 'google' %}" target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-danger" title="Sign in with Google">
+                            <i class="fab fa-google"></i>
+                        </a>
+
+                        <!-- GitHub -->
+                        <a href="{% provider_login_url 'github' %}" target="_blank" rel="noopener noreferrer"
+                           class="btn btn-outline-dark" title="Sign in with GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+
+                        <!-- Facebook -->
+                        <a href="{% provider_login_url 'facebook' %}" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-outline-primary" title="Sign in with Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </div>
+            </div>
         </form>
     </div>
 
     <!-- Блок с изображением -->
     <div class="image-container">
-        <img src="{% static 'accounts/registration.jpeg' %}" alt="Side Image">
+        <img src="{% static 'accounts/registration.jpeg' %}" alt="Side Image" class="img-fluid">
     </div>
 </div>
 {% endblock %}

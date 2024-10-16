@@ -31,6 +31,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('list/', include('source.urls')),
     path('account/', include('accounts.urls')),
+    path('accounts/', include('allauth.urls')),
 
     # API
     path(f'{API_VERSION}/login', EmailLoginView.as_view(), name='token_obtain_pair'),
