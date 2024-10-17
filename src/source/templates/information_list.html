@@ -21,14 +21,16 @@
         <h4 style="font-size: 20px; font-weight: normal;">
             {{ info_text|safe|linebreaks }}
         </h4>
-        {% if user.is_authenticated and user.is_active %}
+
+        {% if user.is_authenticated and user.is_superuser %}
             <div>
                 <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success">Update Info</a>
             </div>
         {% endif %}
+
     {% else %}
 
-        {% if user.is_authenticated and user.is_active %}
+        {% if user.is_authenticated and user.is_superuser %}
             <h3>Create New Information</h3>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}

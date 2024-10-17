@@ -10,9 +10,16 @@
     <h1>Topic list</h1>
 {% endblock %}
 
-
 {% block content %}
-    {% if user.is_authenticated and user.is_active %}
+    <!-- Форма поиска топиков -->
+    <div class="container-fluid mb-4">
+        <form class="d-flex" role="search" method="GET" action="{% url 'source:search_topic' %}">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search topics" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if user.is_authenticated and user.is_superuser %}
         <h3>Create New Topic</h3>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

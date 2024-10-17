@@ -19,7 +19,7 @@ class TopicListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Добавляем форму в контекст
-        if self.request.user.is_authenticated and self.request.user.is_active:
+        if self.request.user.is_authenticated and self.request.user.is_superuser:
             context['form'] = TopicCreateForm()
         return context
 
@@ -58,7 +58,7 @@ class SourceListView(LoginRequiredMixin, ListView):
             source.information_list = Information.objects.filter(source=source)  # Получаем информацию, связанную с источником
 
         # Добавляем форму в контекст, если пользователь аутентифицирован
-        if self.request.user.is_authenticated and self.request.user.is_active:
+        if self.request.user.is_authenticated and self.request.user.is_superuser:
             context['form'] = SourceCreateUpdateForm()
         return context
 
