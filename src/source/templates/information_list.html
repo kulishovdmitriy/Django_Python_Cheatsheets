@@ -16,36 +16,31 @@
 
 {% block content %}
 
-    {% if information %}
+    <div class="content">  <!-- Добавляем контейнер для всего контента -->
+        {% if information %}
+            <h4 style="font-size: 20px; font-weight: normal;">
+                {{ info_text|safe|linebreaks }}
+            </h4>
 
-        <h4 style="font-size: 20px; font-weight: normal;">
-            {{ info_text|safe|linebreaks }}
-        </h4>
-
-        {% if user.is_authenticated and user.is_superuser %}
-            <div>
-                <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success">Update Info</a>
-            </div>
-        {% endif %}
-
-    {% else %}
-
-        {% if user.is_authenticated and user.is_superuser %}
-            <h3>Create New Information</h3>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <div style="display: flex; justify-content: flex-end;">
-                    <button type="submit" class="btn btn-outline-success">Create Info</button>
-                    {% if information %}
-                        <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success">Update Info</a>
-                    {% endif %}
+            {% if user.is_authenticated and user.is_superuser %}
+                <div>
+                    <a href="{% url 'source:information_update' information.id %}" class="btn btn-outline-success margin-bottom-large">Update Info</a>
                 </div>
-            </form>
-        {% endif %}
+            {% endif %}
 
-        <p>No Information yet :(</p>
-    {% endif %}
+        {% else %}
+            {% if user.is_authenticated and user.is_superuser %}
+                <h3>Create New Information</h3>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn btn-outline-success">Create Info</button>
+                    </div>
+                </form>
+            {% endif %}
+            <p>No Information yet :(</p>
+        {% endif %}
+    </div> <!-- Закрываем контейнер -->
 
 {% endblock %}
-

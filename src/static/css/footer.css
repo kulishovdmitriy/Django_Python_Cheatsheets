@@ -1,0 +1,63 @@
+footer {
+    padding-top: 3rem; /* Отступ сверху */
+    font-size: 0.9rem; /* Чуть уменьшенный шрифт */
+    background-color: #333; /* Серый фон */
+    color: #fff; /* Белый цвет текста */
+    border-radius: 15px; /* Закругленные углы */
+    margin: 0 80px; /* Отступы с обеих сторон */
+    padding: 2rem 1.5rem; /* Дополнительные внутренние отступы */
+}
+
+footer .container {
+    max-width: 1200px; /* Максимальная ширина */
+    margin: 0 auto; /* Центрирование */
+}
+
+.social-media {
+    display: flex;
+    flex-direction: column; /* Размещаем элементы в колонку */
+    align-items: flex-end; /* Выровнять контент вправо */
+}
+
+.social-media h4 {
+    margin-bottom: 5px; /* Отступ снизу для текста */
+    font-size: 1.1rem; /* Чуть увеличенный заголовок */
+    color: #fff; /* Белый цвет заголовка */
+}
+
+.social-media ul {
+    list-style: none; /* Убираем маркеры списка */
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 15px; /* Промежуток между элементами */
+}
+
+.social-media li {
+    display: inline; /* Инлайновый элемент */
+}
+
+.social-media a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #fff; /* Белый цвет текста */
+    font-size: 1.1rem; /* Размер шрифта */
+    transition: color 0.3s; /* Плавный переход цвета */
+    display: flex; /* Для выравнивания иконки по центру */
+    align-items: center; /* Вертикальное выравнивание иконки */
+}
+
+.social-media a:hover {
+    color: #007bff; /* Цвет при наведении */
+}
+
+.social-media a.facebook:hover {
+    color: #3b5998; /* Цвет Facebook при наведении */
+}
+
+.social-media a.instagram:hover {
+    color: #e1306c; /* Цвет Instagram при наведении */
+}
+
+.social-media a.twitter:hover {
+    color: #1da1f2; /* Цвет Twitter при наведении */
+}
