@@ -21,3 +21,11 @@ pre code {
     display: block; /* Блоковое отображение */
     overflow: auto; /* Прокрутка при необходимости */
     white-space: pre-wrap;  /* Чтобы сохранялись отступы */
+
+.content {
+    margin-bottom: 60px !important; /* Принудительный отступ */
+}
+
+.margin-bottom-large {
+    margin-bottom: 40px !important; /* Принудительный отступ для кнопки */
+}
