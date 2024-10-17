@@ -11,7 +11,16 @@
 {% endblock %}
 
 {% block content %}
-    {% if user.is_authenticated and user.is_active %}
+
+    <!-- Форма поиска топиков -->
+    <div class="container-fluid mb-4">
+        <form class="d-flex" role="search" method="GET" action="{% url 'source:search_source' %}">
+            <input class="form-control me-2" type="search" name="q" placeholder="Search source" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
+
+    {% if user.is_authenticated and user.is_superuser %}
         <h3>Create New Source</h3>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -34,11 +43,20 @@
                             <div>
                                 {% if source.information_list.exists %}
                                     {% for information in source.information_list %}
+
                                         <a href="{% url 'source:information_list' information.id %}" class="btn btn-outline-info">DETAILS</a>
-                                        <a href="{% url 'source:source_update' source.id %}" class="btn btn-outline-secondary">Update</a>
+
+                                        {% if user.is_authenticated and user.is_superuser %}
+                                            <a href="{% url 'source:source_update' source.id %}" class="btn btn-outline-secondary">Update</a>
+                                        {% endif %}
                                     {% endfor %}
+
                                 {% else %}
-                                    <a href="{% url 'source:information_create' source.id %}" class="btn btn-outline-success">Create Info</a>
+
+                                    {% if user.is_authenticated and user.is_superuser %}
+                                        <a href="{% url 'source:information_create' source.id %}" class="btn btn-outline-success">Create Info</a>
+                                    {% endif %}
+
                                 {% endif %}
 
                             </div>
