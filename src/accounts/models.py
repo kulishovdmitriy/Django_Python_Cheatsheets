@@ -8,7 +8,7 @@ from django.core.validators import MinLengthValidator
 
 
 def user_directory_path(instance, filename):
-    # Файлы будут сохраняться в MEDIA_ROOT/user_<uuid>/<filename>
+    # File save in MEDIA_ROOT/user_<uuid>/<filename>
     return 'user_{0}/{1}'.format(instance.user.uuid, filename)
 
 

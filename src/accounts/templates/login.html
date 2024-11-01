@@ -19,7 +19,7 @@
 
 {% block content %}
 <div class="login-container">
-    <!-- Блок с формой -->
+
     <div class="form-container">
         <form method="post">
             {% csrf_token %}
@@ -57,7 +57,7 @@
         </form>
     </div>
 
-    <!-- Блок с изображением -->
+
     <div class="image-container">
         <img src="{% static 'accounts/login.jpeg' %}" alt="Side Image" class="img-fluid">
     </div>

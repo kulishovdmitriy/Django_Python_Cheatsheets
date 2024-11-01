@@ -18,7 +18,6 @@ class TopicListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # Добавляем форму в контекст
         if self.request.user.is_authenticated and self.request.user.is_superuser:
             context['form'] = TopicCreateForm()
         return context
@@ -37,27 +36,22 @@ class SourceListView(LoginRequiredMixin, ListView):
     model = Source
     template_name = 'source_list.html'
     context_object_name = 'sources'
-    pk_url_kwarg = 'id'  # Получение ID топика из URL
+    pk_url_kwarg = 'id'
     paginate_by = 12
 
     def get_queryset(self):
-        # Получаем ID топика из URL
         topic_id = self.kwargs.get('id')
-        # Возвращаем только те источники, которые принадлежат текущему топику
         return Source.objects.filter(topic_id=topic_id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        # Получаем текущий топик
         topic = Topic.objects.get(pk=self.kwargs.get('id'))
-        context['topic'] = topic  # Добавляем топик в контекст
+        context['topic'] = topic
 
-        # Добавляем информацию, связанную с источником, в контекст
         for source in context['sources']:
-            source.information_list = Information.objects.filter(source=source)  # Получаем информацию, связанную с источником
+            source.information_list = Information.objects.filter(source=source)
 
-        # Добавляем форму в контекст, если пользователь аутентифицирован
         if self.request.user.is_authenticated and self.request.user.is_superuser:
             context['form'] = SourceCreateUpdateForm()
         return context
@@ -67,10 +61,10 @@ class SourceListView(LoginRequiredMixin, ListView):
         form = SourceCreateUpdateForm(request.POST, request.FILES)
         if form.is_valid():
             source = form.save(commit=False)
-            source.topic = topic  # Связываем новый источник с топиком
+            source.topic = topic
             source.save()
             messages.success(request, 'Source created successfully!')
-            return HttpResponseRedirect(reverse('source:source_list', kwargs={'id': topic.id}))  # Перенаправляем обратно на список
+            return HttpResponseRedirect(reverse('source:source_list', kwargs={'id': topic.id}))
         return self.get(request, *args, **kwargs)
 
 
@@ -82,15 +76,13 @@ class SourceUpdateView(LoginRequiredMixin, UpdateView):
     pk_url_kwarg = 'id'
 
     def form_valid(self, form):
-        # Сохранение объекта
         source = form.save(commit=False)
-        source.save()  # Сохраняем объект
+        source.save()
 
         messages.success(self.request, 'Source updated successfully!')
-        return super().form_valid(form)  # Перенаправляем после успешного сохранения
+        return super().form_valid(form)
 
     def get_success_url(self):
-        # Перенаправление после успешного обновления
         return reverse('source:source_list', kwargs={'id': self.object.topic.id})
 
 
@@ -98,12 +90,11 @@ class InformationDetailView(LoginRequiredMixin, DetailView):
     model = Information
     template_name = 'information_list.html'
     context_object_name = 'information'
-    pk_url_kwarg = 'id'  # Этот id должен быть идентификатором информации
+    pk_url_kwarg = 'id'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['source'] = self.object.source  # Получаем источник информации
-        # Получаем текст из объекта и выделяем код
+        context['source'] = self.object.source
         text_with_highlighting = highlight_code(self.object.text)
 
         context['info_text'] = text_with_highlighting
@@ -119,7 +110,7 @@ class InformationCreateView(LoginRequiredMixin, CreateView):
         source_id = self.kwargs.get('source_id')
         source = get_object_or_404(Source, pk=source_id)
         information = form.save(commit=False)
-        information.source = source  # Привязываем информацию к источнику
+        information.source = source
         information.save()
         messages.success(self.request, 'Information created successfully!')
         return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))
@@ -129,17 +120,17 @@ class InformationUpdateView(LoginRequiredMixin, UpdateView):
     model = Information
     template_name = 'information_update.html'
     form_class = InformationCreateUpdateForm
-    pk_url_kwarg = 'id'  # предполагаем, что в URL передается id информации
+    pk_url_kwarg = 'id'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        information = self.get_object()  # Получаем объект информации
-        context['source'] = information.source  # Получаем связанный источник
+        information = self.get_object()
+        context['source'] = information.source
         return context
 
     def form_valid(self, form):
         information = form.save(commit=False)
-        information.source = information.source  # Здесь вы уже связаны с объектом Source
-        information.save()  # Сохраняем объект
+        information.source = information.source
+        information.save()
         messages.success(self.request, 'Information updated successfully!')
         return HttpResponseRedirect(reverse('source:information_list', kwargs={'id': information.id}))
