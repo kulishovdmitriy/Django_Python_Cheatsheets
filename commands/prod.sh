@@ -7,16 +7,16 @@ sleep 5
 echo "Running Django with ALLOWED_HOSTS: $ALLOWED_HOSTS"
 echo "Using Gunicorn with $WORKERS workers on port $PORT"
 
-# Применение миграций
+
 echo "Applying migrations..."
 python manage.py migrate
 echo "Migrations applied successfully."
 
-# Сбор статики
+
 echo "Collecting static files..."
 python manage.py collectstatic --noinput
 echo "Static files collected successfully."
 
-# Запуск приложения с Gunicorn
+
 echo "Starting the application..."
-gunicorn -w ${WORKERS} -b 0.0.0.0:"${PORT}" app.wsgi:application
+gunicorn -w "${WORKERS}" -b 0.0.0.0:"${PORT}" app.wsgi:application

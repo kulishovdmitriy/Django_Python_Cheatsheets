@@ -61,7 +61,6 @@ class LogoutAPIView(APIView):
 
             token = auth.split(' ')[1]
 
-            # Создаем запись в черном списке
             BlacklistedToken.objects.create(token=token)
 
             return Response({"detail": "Successfully logged out."}, status=status.HTTP_205_RESET_CONTENT)

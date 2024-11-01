@@ -15,31 +15,31 @@
 {% endblock %}
 
 {% block content %}
-    <div class="profile-container">
-    <!-- Блок с формой -->
-        <div class="form-container">
-        <form method="post" enctype="multipart/form-data" class="user-edit-form">
-            <div style="text-align: center;">
-                <img src="{{ user.profile.image.url }}" alt="Profile Image" class="rounded-image">
-                <h2>{{ user.username }}</h2>
-                <p>{{ user.email }}</p>
-            </div>
+<div class="profile-container">
 
-            {% csrf_token %}
+    <div class="form-container">
+    <form method="post" enctype="multipart/form-data" class="user-edit-form">
+        <div style="text-align: center;">
+            <img src="{{ user.profile.image.url }}" alt="Profile Image" class="rounded-image">
+            <h2>{{ user.username }}</h2>
+            <p>{{ user.email }}</p>
+        </div>
 
-            {{ user_form|crispy }}
-            {{ profile_form|crispy }}
+        {% csrf_token %}
 
-            <div class="mb-3">
-                <input type="submit" class="btn btn-outline-success" value="Save">
-                <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
-            </div>
-        </form>
-    </div>
-        <!-- Блок с изображением -->
-    <div class="image-container">
-        <img src="{% static 'accounts/profile.jpeg' %}" alt="Side Image">
-    </div>
+        {{ user_form|crispy }}
+        {{ profile_form|crispy }}
 
-    </div>
+        <div class="mb-3">
+            <input type="submit" class="btn btn-outline-success" value="Save">
+            <input type="button" class="btn btn-outline-secondary" value="Back" onclick="history.back()">
+        </div>
+    </form>
+</div>
+
+<div class="image-container">
+    <img src="{% static 'accounts/profile.jpeg' %}" alt="Side Image">
+</div>
+
+</div>
 {% endblock %}

@@ -51,9 +51,7 @@ class AccountLogoutView(LogoutView):
 class ProfileUpdateView(LoginRequiredMixin, ProcessFormView):
 
     def get_object(self):
-        # Получаем UUID из kwargs
         uuid = self.kwargs.get('uuid')
-        # Находим пользователя по UUID
         user = get_object_or_404(User, uuid=uuid)
         return user
 

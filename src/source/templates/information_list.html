@@ -16,7 +16,7 @@
 
 {% block content %}
 
-    <div class="content">  <!-- Добавляем контейнер для всего контента -->
+    <div class="content">
         {% if information %}
             <h4 style="font-size: 20px; font-weight: normal;">
                 {{ info_text|safe|linebreaks }}
@@ -41,6 +41,6 @@
             {% endif %}
             <p>No Information yet :(</p>
         {% endif %}
-    </div> <!-- Закрываем контейнер -->
+    </div>
 
 {% endblock %}

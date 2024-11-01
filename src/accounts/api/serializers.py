@@ -40,17 +40,14 @@ class EmailLoginSerializer(serializers.Serializer):
         email = attrs.get('email')
         password = attrs.get('password')
 
-        # Попробуем найти пользователя по email
         try:
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             raise serializers.ValidationError("Invalid email or password")
 
-        # Проверка пароля
         if not user.check_password(password):
             raise serializers.ValidationError("Invalid email or password")
 
-        # Если аутентификация прошла успешно, возвращаем пользователя
         attrs['user'] = user
         return attrs
 
