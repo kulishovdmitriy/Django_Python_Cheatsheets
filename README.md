@@ -5,7 +5,7 @@
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
-
+- [Demo_Images](#demo-images)
 
 ## Overview
 
@@ -111,3 +111,16 @@ How to Use
 
 ### Important!! To enable email confirmation and password reset functionality, you need to configure an SMTP server.
 
+
+## Demo Images
+
+Here are some screenshots of the application showing how your cheat sheets on various topics and subtopics could look.
+
+![Screenshot 1](src/media/demo/screenshot1.png)
+![Screenshot 2](src/media/demo/screenshot2.png)
+![Screenshot 3](src/media/demo/screenshot3.png)
+![Screenshot 4](src/media/demo/screenshot4.png)
+![Screenshot 5](src/media/demo/screenshot5.png)
+![Screenshot 6](src/media/demo/screenshot6.png)
+![Screenshot 7](src/media/demo/screenshot7.png)
+![Screenshot 8](src/media/demo/screenshot8.png)

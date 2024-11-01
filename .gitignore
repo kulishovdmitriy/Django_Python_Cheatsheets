@@ -114,4 +114,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-src/media/
+src/media/profile
+src/media/user_a0b93451-d041-492b-b033-ce1723b61e71
+src/media/topic_images
+src/media/source_images
